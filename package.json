@@ -1,0 +1,37 @@
+{
+  "name": "terminale",
+  "version": "1.0.0",
+  "description": "Find an appointment in Berlin.de services",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "terminale": "./index.js"
+  },
+  "author": "Can Kutlu Kinay <ckkinay@gmail.com>",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "got": "^8.3.1",
+    "opn": "^5.3.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/cakuki/terminale.git"
+  },
+  "keywords": [
+    "berlin",
+    "berlin",
+    "services",
+    "berlin.de"
+  ],
+  "bugs": {
+    "url": "https://github.com/cakuki/terminale/issues"
+  },
+  "homepage": "https://github.com/cakuki/terminale#readme"
+}
