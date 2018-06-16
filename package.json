@@ -1,6 +1,6 @@
 {
   "name": "terminale",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Find an appointment in Berlin.de services",
   "main": "index.js",
   "scripts": {
