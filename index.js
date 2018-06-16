@@ -8,10 +8,13 @@ const sleep = require('util').promisify(setTimeout)
 
 const WAIT = (process.env.WAIT || 30) * 1000;
 const URL = process.argv[2] || process.env.URL;
-const DATE = process.argv[3] || process.env.DATE || "2018-06-18";
+const DATE = new Date(process.argv[3] || process.env.DATE);
 
 if (!URL)
-    throw new TypeError('URL must be given as env param or 2nd CLI argument')
+    throw new TypeError('URL must be given as env param or first CLI argument')
+
+if (!DATE || isNaN(DATE))
+    throw new TypeError('Date must be given as env param or second CLI argument')
 
 async function getBookingUrl(date) {
     const { body } = await got(URL);
@@ -36,14 +39,13 @@ async function getBookingUrl(date) {
 }
 
 async function run() {
-    const date = new Date(DATE);
-    let bookingUrl = await getBookingUrl(date);
+    let bookingUrl = await getBookingUrl(DATE);
 
     while (!bookingUrl) {
         console.log(`Not bookable. Waiting for ${(WAIT/1000)} seconds before retrying...`);
         await sleep(WAIT);
         console.log('Trying again...');
-        bookingUrl = await getBookingUrl(date);
+        bookingUrl = await getBookingUrl(DATE);
     }
 
     opn(`https://service.berlin.de/terminvereinbarung/termin/${bookingUrl}`);
