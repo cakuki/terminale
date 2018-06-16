@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const cheerio = require('cheerio');
 const got = require('got');
 const opn = require('opn');
