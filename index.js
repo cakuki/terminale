@@ -1,25 +1,8 @@
-#!/usr/bin/env node
-
 const cheerio = require('cheerio');
 const got = require('got');
-const opn = require('opn');
 
-const sleep = require('util').promisify(setTimeout)
-
-const WAIT = (process.env.WAIT || 30) * 1000;
-const URL = process.argv[2] || process.env.URL;
-const DATE = new Date(process.argv[3] || process.env.DATE);
-
-if (!URL)
-    throw new TypeError('URL must be given as env param or first CLI argument')
-
-if (!DATE || isNaN(DATE))
-    throw new TypeError('Date must be given as env param or second CLI argument')
-
-async function getBookingUrl(date) {
-    const { body } = await got(URL);
-    console.log(`Fetched page from "${URL}".`);
-    console.log(`Parsing page contents.`);
+module.exports = async function getBookingUrl({ url, date }) {
+    const { body } = await got(url);
     let $ = cheerio.load(body);
 
     let monthTables = $('.calendar-month-table');
@@ -37,18 +20,3 @@ async function getBookingUrl(date) {
 
     return el.find('a').attr('href');
 }
-
-async function run() {
-    let bookingUrl = await getBookingUrl(DATE);
-
-    while (!bookingUrl) {
-        console.log(`Not bookable. Waiting for ${(WAIT/1000)} seconds before retrying...`);
-        await sleep(WAIT);
-        console.log('Trying again...');
-        bookingUrl = await getBookingUrl(DATE);
-    }
-
-    opn(`https://service.berlin.de/terminvereinbarung/termin/${bookingUrl}`);
-    process.exit(0);
-}
-run();
