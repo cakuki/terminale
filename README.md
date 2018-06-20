@@ -1,4 +1,4 @@
-![Berlin Logo](./berlin-logo.png)
+![Berlinale Logo](./logo.png)
 
 ---
 
