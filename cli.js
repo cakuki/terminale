@@ -49,7 +49,7 @@ async function run({ url, date, wait }) {
 
     while (!bookingUrl) {
         n++;
-        spinner.warn(`No available appointment on ${date.toLocaleDateString()} as for ${new Date().toLocaleTimeString()}`);
+        spinner.warn(`No available appointment on ${date.toLocaleDateString()} as of ${new Date().toLocaleTimeString()}`);
         spinner.start();
         await sleepWithSpinner(spinner, wait);
         spinner.start(`Trying again (iteration: ${n}), fetching page...`);
